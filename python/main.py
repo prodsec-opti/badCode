@@ -10,7 +10,7 @@ os.chmod(temp_file, stat.S_IWOTH)
 with open(temp_file, 'r') as f:
     print(f)
 
-os.chmod("/tmp/foo.txt", stat.S_IXGRP)
+os.chmod("/tmp/fooo.txt", stat.S_IXGRP)
 tar_file = '/file.tax*'
 os.system(tar_file)
 

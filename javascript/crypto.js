@@ -44,7 +44,7 @@ function generateKeyFiles() {
             type: 'pkcs8',
             format: 'pem',
             cipher: 'aes-256-cbc',
-            passphrase: 'top secret'
+            passphrase: 'top  secret'
         }
     });
 
@@ -60,7 +60,7 @@ function encryptString (plaintext, privateKey) {
     privateKey = {
         key: privateKey,
         padding: crypto.constants.RSA_NO_PADDING,
-        passphrase: 'top secret'
+        passphrase: 'top  secret'
         }
         // privateEncrypt() method with its parameters
         const encrypted = crypto.privateEncrypt(
