@@ -8,22 +8,22 @@ const mysql = require('mysql');
 app.post('/login', (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
+// sample changes
+    //Vulnerable query 
+    const query = `SELECT * FROM users WHERE username = '${username}' AND password = '${password}'`;
 
-    // Vulnerable query 
-//     const query = `SELECT * FROM users WHERE username = '${username}' AND password = '${password}'`;
+    const connection = mysql.createConnection({
+        host: 'localhost',
+        user: 'root',
+        password: '',
+        database: 'testdb',
+    });
 
-//     const connection = mysql.createConnection({
-//         host: 'localhost',
-//         user: 'root',
-//         password: '',
-//         database: 'testdb',
-//     });
+    connection.query(query, (err, results) => {
+       //to do ...
+    });
 
-//     connection.query(query, (err, results) => {
-//        //to do ...
-//     });
-
-// });
+});
 
 
 
