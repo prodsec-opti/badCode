@@ -21,5 +21,6 @@ def load_data(data):
     return pickle.loads(data)  # Unsafe deserialization
 
 # Vulnerability 5: Exposed Secret in Code
-AWS_ACCESS_KEY = "AKIAIOSFODNN7EXAMPLE"
-AWS_SECRET_KEY = "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+
+# AWS_ACCESS_KEY = "AKIAIOSFODNN7EXAMPLE"
+# AWS_SECRET_KEY = "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
