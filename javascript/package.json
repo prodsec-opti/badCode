@@ -1,4 +1,7 @@
 {
+  
+  
+  
   "name": "vulnerable-node-app",
   "version": "1.0.0",
   "description": "A Node.js app with vulnerable dependencies for SCA testing",
