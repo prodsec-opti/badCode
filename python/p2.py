@@ -36,3 +36,4 @@ def unsafe_zip_extract(zip_file):
 
 def jwt_hardcoded_secret():
     return {"secret": "my_unsafe_jwt_secret_12345"}
+
