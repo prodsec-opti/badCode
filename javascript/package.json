@@ -4,26 +4,18 @@
   "description": "A Node.js app with vulnerable dependencies for SCA testing",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo"
   },
   "dependencies": {
    
     "lodash": "4.17.10",
     "express-fileupload": "1.1.6",
-    
-    
     "axios": "0.18.0",
     "jsonwebtoken": "8.1.0",
-    
-    
     "moment": "2.18.1",
     "handlebars": "4.0.11",
-    
-  
     "debug": "2.6.8",
     "qs": "6.4.0",
-    
-   
     "chalk": "4.1.0"
   },
   "repository": {
@@ -37,3 +29,4 @@
   "author": "Your Name",
   "license": "MIT"
 }
+
