@@ -4,22 +4,32 @@
     <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
 
-  <!-- Critical Severity: RCE/Privilege Escalation -->
-  <PackageReference Include="Newtonsoft.Json" Version="9.0.1" /> <!-- CVE-2021-24112 -->
-  <PackageReference Include="log4net" Version="1.2.10" /> <!-- CVE-2018-1285 -->
+  <ItemGroup>
+    <!-- Critical Severity: RCE/Privilege Escalation -->
+    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" /> <!-- CVE-2021-24112 -->
+    <PackageReference Include="log4net" Version="1.2.10" /> <!-- CVE-2018-1285 -->
+  </ItemGroup>
 
-  <!-- High Severity: DoS/Data Corruption -->
-  <PackageReference Include="System.Data.SqlClient" Version="4.0.0" /> <!-- CVE-2022-34716 -->
-  <PackageReference Include="SharpZipLib" Version="0.86.0" /> <!-- CVE-2018-1002203 -->
+  <ItemGroup>
+    <!-- High Severity: DoS/Data Corruption -->
+    <PackageReference Include="System.Data.SqlClient" Version="4.0.0" /> <!-- CVE-2022-34716 -->
+    <PackageReference Include="SharpZipLib" Version="0.86.0" /> <!-- CVE-2018-1002203 -->
+  </ItemGroup>
 
-  <!-- Medium Severity: Info Disclosure/Bypass -->
-  <PackageReference Include="NLog" Version="4.3.0" /> <!-- CVE-2017-1000248 -->
-  <PackageReference Include="Dapper" Version="1.50.2" /> <!-- CVE-2020-26116 -->
+  <ItemGroup>
+    <!-- Medium Severity: Info Disclosure/Bypass -->
+    <PackageReference Include="NLog" Version="4.3.0" /> <!-- CVE-2017-1000248 -->
+    <PackageReference Include="Dapper" Version="1.50.2" /> <!-- CVE-2020-26116 -->
+  </ItemGroup>
 
-  <!-- Low Severity: Non-Critical Bugs -->
-  <PackageReference Include="RestSharp" Version="106.3.1" /> <!-- CVE-2021-27293 -->
-  <PackageReference Include="AutoMapper" Version="6.0.2" /> <!-- CVE-2020-13768 -->
+  <ItemGroup>
+    <!-- Low Severity: Non-Critical Bugs -->
+    <PackageReference Include="RestSharp" Version="106.3.1" /> <!-- CVE-2021-27293 -->
+    <PackageReference Include="AutoMapper" Version="6.0.2" /> <!-- CVE-2020-13768 -->
+  </ItemGroup>
 
-  <!-- False Positive Test -->
-  <PackageReference Include="Serilog" Version="2.10.0" /> <!-- Often flagged but no critical CVEs -->
+  <ItemGroup>
+    <!-- False Positive Test -->
+    <PackageReference Include="Serilog" Version="2.10.0" /> <!-- Often flagged but no critical CVEs -->
+  </ItemGroup>
 </Project>
