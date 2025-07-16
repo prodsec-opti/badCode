@@ -1,68 +1,104 @@
+```csharp
 using System;
 using System.Data.SqlClient;
 using System.Diagnostics;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Xml;
+using System.Web;
+using System.IdentityModel.Tokens.Jwt;
 
-namespace VulnerableApp
+namespace InventoryService
 {
-    class Program
+    class DataManager
     {
-        // Vulnerability 1: SQL Injection (CWE-89)
-        static void GetUser(string username)
+        /* CRITICAL VULNERABILITIES */
+
+        // SQL Injection (CWE-89)
+        static void GetRecords(string filter)
         {
-            string connectionString = "Server=localhost;Database=test;User ID=sa;Password=;";
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (var conn = new SqlConnection("Server=dbserver;Database=inventory;User ID=webapp;"))
             {
-                string query = "SELECT * FROM Users WHERE Username = '" + username + "'"; // SQLi
-                SqlCommand command = new SqlCommand(query, connection);
-                connection.Open();
-                SqlDataReader reader = command.ExecuteReader();
-                while (reader.Read())
-                {
-                    Console.WriteLine(reader["Username"]);
-                }
+                var cmd = new SqlCommand($"SELECT * FROM Products WHERE Category = '{filter}'", conn);
+                conn.Open();
+                cmd.ExecuteReader();
             }
         }
 
-        // Vulnerability 2: Command Injection (CWE-78)
-        static void PingHost(string host)
+        // Command Injection (CWE-78)
+        static void RunDiagnostics(string target)
         {
-            Process.Start("cmd.exe", "/C ping " + host); // Command injection
+            Process.Start("cmd.exe", $"/C tracert {target}");
         }
 
-        // Vulnerability 3: Insecure Deserialization (CWE-502)
-        static object DeserializeData(byte[] data)
+        // Insecure Deserialization (CWE-502)
+        static object RestoreState(byte[] stateData)
         {
-            BinaryFormatter formatter = new BinaryFormatter();
-            using (MemoryStream ms = new MemoryStream(data))
-            {
-                return formatter.Deserialize(ms); // Insecure deserialization
-            }
+            return new BinaryFormatter().Deserialize(new MemoryStream(stateData));
         }
 
-        // Vulnerability 4: Hardcoded Cryptographic Key (CWE-321)
-        static string EncryptData(string data)
+        // XXE (CWE-611)
+        static void LoadConfig(string xmlConfig)
         {
-            string encryptionKey = "thisisabadkey123"; // Hardcoded crypto key
-            // ... encryption logic ...
-            return "encrypted_data";
+            var doc = new XmlDocument { XmlResolver = new XmlUrlResolver() };
+            doc.LoadXml(xmlConfig);
         }
 
-        // Vulnerability 5: Exposed Secrets
-        const string AWS_ACCESS_KEY = "AKIAIOSFODNN7EXAMPLE";
-        const string AWS_SECRET_KEY = "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY";
-        const string DB_PASSWORD = "SuperSecretDBPassword123!";
+        /* HIGH SEVERITY */
+
+        // Hardcoded AWS Secrets (CWE-798)
+        const string DEPLOYMENT_KEY = "AKIAIOSFODNN7EXAMPLE";
+        const string DEPLOYMENT_SECRET = "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY";
+
+        // Hardcoded JWT Secret (CWE-798)
+        static readonly byte[] TOKEN_SIGNATURE = new byte[] { 0x01, 0x02, 0x03 };
+
+        // Template Injection (CWE-1336)
+        static void BuildNotification(string userTemplate)
+        {
+            Console.WriteLine($"Alert: {userTemplate}");
+        }
+
+        /* MEDIUM SEVERITY */
+
+        // XSS (CWE-79)
+        static void RenderContent(string userContent)
+        {
+            HttpContext.Current.Response.Write($"<div>{userContent}</div>");
+        }
+
+        // OAuth Token Exposure (CWE-200)
+        static void AuditSession(string authToken)
+        {
+            File.AppendAllText("audit.log", $"New session: {authToken}");
+        }
+
+        /* LOW SEVERITY */
+
+        // Path Traversal (CWE-22)
+        static void ImportData(string sourceFile)
+        {
+            var data = File.ReadAllText(Path.Combine("C:/import/", sourceFile));
+        }
+
+        // Weak Randomness (CWE-338)
+        static int GenerateId()
+        {
+            return new Random().Next();
+        }
 
         static void Main(string[] args)
         {
+            /* DEMO EXECUTION */
             if (args.Length > 0)
             {
-                GetUser(args[0]);
-                PingHost(args[0]);
+                GetRecords(args[0]);          // Triggers SQLi
+                RunDiagnostics(args[0]);      // Triggers command injection
+                LoadConfig("<!DOCTYPE test [ <!ENTITY xxe SYSTEM \"file:///etc/passwd\"> ]><test>&xxe;</test>");
+                BuildNotification(args[0]);   // Triggers template injection
+                ImportData(args[0]);          // Triggers path traversal
             }
-
-            Console.WriteLine("Application running with insecure configurations!");
         }
     }
 }
+```
