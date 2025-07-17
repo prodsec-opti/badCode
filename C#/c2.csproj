@@ -7,12 +7,13 @@
   <ItemGroup>
     <!-- Critical Severity: RCE/Privilege Escalation -->
     <PackageReference Include="Newtonsoft.Json" Version="9.0.1" /> <!-- CVE-2021-24112 -->
-    <PackageReference Include="log4net" Version="1.2.10" /> <!-- CVE-2018-1285 -->
+    <PackageReference Include="log4net" Version="1.2.10" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.12.1" /> <!-- CVE-2018-1285 -->
   </ItemGroup>
 
   <ItemGroup>
     <!-- High Severity: DoS/Data Corruption -->
-    <PackageReference Include="System.Data.SqlClient" Version="4.0.0" /> <!-- CVE-2022-34716 -->
+    <PackageReference Include="System.Data.SqlClient" Version="4.9.0" /> <!-- CVE-2022-34716 -->
     <PackageReference Include="SharpZipLib" Version="0.86.0" /> <!-- CVE-2018-1002203 -->
   </ItemGroup>
 
