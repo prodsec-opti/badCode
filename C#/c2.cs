@@ -12,17 +12,17 @@ namespace VulnerableWebApp
 {
     public partial class Default : Page
     {
-        // 🚨 Hardcoded secrets
+        // 🚨  secrets
         private const string jwtSecret = "supersecretkeythatshouldnotbeinhere123!";
         private const string dbPassword = "P@ssw0rd123!";
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            // 🚨 Reflected XSS
+            // 🚨 Reflected 
             string searchQuery = Request.QueryString["q"];
             Response.Write("Search results for: " + searchQuery);
 
-            // 🚨 Insecure deserialization
+            // 🚨  deserialization
             string serializedObject = Request.Form["payload"];
             if (!string.IsNullOrEmpty(serializedObject))
             {
@@ -34,14 +34,14 @@ namespace VulnerableWebApp
                 }
             }
 
-            // 🚨 Command Injection
+            // 🚨 Command 
             string userInput = Request.QueryString["cmd"];
             if (!string.IsNullOrEmpty(userInput))
             {
                 Process.Start("cmd.exe", "/C " + userInput);
             }
 
-            // 🚨 Insecure JWT (hardcoded secret + no validation)
+            // 🚨 Insecure JWT 
             string token = Request.QueryString["token"];
             if (!string.IsNullOrEmpty(token))
             {
@@ -51,7 +51,7 @@ namespace VulnerableWebApp
             }
         }
 
-        // 🚨 File upload vulnerability (no validation)
+        // 🚨 File upload 
         protected void Upload_Click(object sender, EventArgs e)
         {
             HttpPostedFile file = Request.Files["upload"];
