@@ -1,102 +1,89 @@
-
 using System;
+using System.IO;
+using System.Web;
+using System.Web.UI;
 using System.Data.SqlClient;
 using System.Diagnostics;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
+using System.Text;
 using System.Xml;
-using System.Web;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.IdentityModel.Tokens.Jwt;
 
-namespace InventoryService
+namespace VulnerableWebApp
 {
-    class DataManager
+    public partial class Default : Page
     {
-        /* CRITICAL VULNERABILITIES */
+        // 🚨 Hardcoded secrets
+        private const string JWT_SECRET = "hardcodedSecretKeyForJWT123!";
+        private const string DB_PASSWORD = "SuperSecretP@ssword";
 
-        // SQL Injection (CWE-89)
-        static void GetRecords(string filter)
+        protected void Page_Load(object sender, EventArgs e)
         {
-            using (var conn = new SqlConnection("Server=dbserver;Database=inventory;User ID=webapp;"))
+            // 🚨 Reflected XSS
+            string q = Request.QueryString["q"];
+            Response.Write("<html><body>Search results for: " + q + "</body></html>");
+
+            // 🚨 SQL Injection
+            string user = Request.QueryString["user"];
+            string pass = Request.QueryString["pass"];
+            using (SqlConnection conn = new SqlConnection("Server=localhost;Database=TestApp;User Id=sa;Password=" + DB_PASSWORD + ";"))
             {
-                var cmd = new SqlCommand($"SELECT * FROM Products WHERE Category = '{filter}'", conn);
                 conn.Open();
-                cmd.ExecuteReader();
+                string sql = "SELECT * FROM users WHERE username = '" + user + "' AND password = '" + pass + "'";
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Response.Write("Welcome, " + reader["fullname"] + "<br>");
+                }
+            }
+
+            // 🚨 Command Injection
+            string cmdInput = Request.QueryString["cmd"];
+            if (!string.IsNullOrEmpty(cmdInput))
+            {
+                Process.Start("cmd.exe", "/C " + cmdInput);
+            }
+
+            // 🚨 Insecure JWT decoding (no validation)
+            string token = Request.QueryString["token"];
+            if (!string.IsNullOrEmpty(token))
+            {
+                var handler = new JwtSecurityTokenHandler();
+                var jwt = handler.ReadJwtToken(token);
+                Response.Write("JWT payload: " + jwt.Subject);
             }
         }
 
-        // Command Injection (CWE-78)
-        static void RunDiagnostics(string target)
+        protected void UploadButton_Click(object sender, EventArgs e)
         {
-            Process.Start("cmd.exe", $"/C tracert {target}");
+            // 🚨 Insecure file upload
+            HttpPostedFile file = Request.Files["upload"];
+            string savePath = Server.MapPath("~/uploads/") + Path.GetFileName(file.FileName);
+            file.SaveAs(savePath);
+            Response.Write("File uploaded to: " + savePath);
         }
 
-        // Insecure Deserialization (CWE-502)
-        static object RestoreState(byte[] stateData)
+        protected void ParseXML_Click(object sender, EventArgs e)
         {
-            return new BinaryFormatter().Deserialize(new MemoryStream(stateData));
+            // 🚨 XXE vulnerability
+            string xmlData = Request.Form["xml"];
+            XmlDocument doc = new XmlDocument();
+            doc.XmlResolver = new XmlUrlResolver(); // insecure
+            doc.LoadXml(xmlData);
+            Response.Write("Root element: " + doc.DocumentElement.Name);
         }
 
-        // XXE (CWE-611)
-        static void LoadConfig(string xmlConfig)
+        protected void Deserialize_Click(object sender, EventArgs e)
         {
-            var doc = new XmlDocument { XmlResolver = new XmlUrlResolver() };
-            doc.LoadXml(xmlConfig);
-        }
-
-        /* HIGH SEVERITY */
-
-        // Hardcoded AWS Secrets (CWE-798)
-        const string DEPLOYMENT_KEY = "AKIAIOSFODNN7EXAMPLE";
-        const string DEPLOYMENT_SECRET = "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY";
-
-        // Hardcoded JWT Secret (CWE-798)
-        static readonly byte[] TOKEN_SIGNATURE = new byte[] { 0x01, 0x02, 0x03 };
-
-        // Template Injection (CWE-1336)
-        static void BuildNotification(string userTemplate)
-        {
-            Console.WriteLine($"Alert: {userTemplate}");
-        }
-
-        /* MEDIUM SEVERITY */
-
-        // XSS (CWE-79)
-        static void RenderContent(string userContent)
-        {
-            HttpContext.Current.Response.Write($"<div>{userContent}</div>");
-        }
-
-        // OAuth Token Exposure (CWE-200)
-        static void AuditSession(string authToken)
-        {
-            File.AppendAllText("audit.log", $"New session: {authToken}");
-        }
-
-        /* LOW SEVERITY */
-
-        // Path Traversal (CWE-22)
-        static void ImportData(string sourceFile)
-        {
-            var data = File.ReadAllText(Path.Combine("C:/import/", sourceFile));
-        }
-
-        // Weak Randomness (CWE-338)
-        static int GenerateId()
-        {
-            return new Random().Next();
-        }
-
-        static void Main(string[] args)
-        {
-            /* DEMO EXECUTION */
-            if (args.Length > 0)
+            // 🚨 Insecure deserialization
+            string base64 = Request.Form["payload"];
+            byte[] bytes = Convert.FromBase64String(base64);
+            BinaryFormatter formatter = new BinaryFormatter();
+            using (MemoryStream ms = new MemoryStream(bytes))
             {
-                GetRecords(args[0]);          // Triggers SQLi
-                RunDiagnostics(args[0]);      // Triggers command injection
-                LoadConfig("<!DOCTYPE test [ <!ENTITY xxe SYSTEM \"file:///etc/passwd\"> ]><test>&xxe;</test>");
-                BuildNotification(args[0]);   // Triggers template injection
-                ImportData(args[0]);          // Triggers path traversal
+                object obj = formatter.Deserialize(ms);
+                Response.Write("Deserialized object: " + obj.ToString());
             }
         }
     }
