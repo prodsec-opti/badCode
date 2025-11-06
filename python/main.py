@@ -42,7 +42,7 @@ sock = socket(
     SOCK_STREAM | SOCK_NONBLOCK)
 
 # Bind the socket to the internet with a port number
-sock.bind(("::", 32007))
+sock.bind(("0.0.0.0", 32007))
 
 
 def add_server_port(sg, server_name, port):
