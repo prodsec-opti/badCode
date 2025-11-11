@@ -67,6 +67,9 @@ module.exports = function login () {
     challengeUtils.solveIf(challenges.oauthUserPasswordChallenge, () => { return req.body.email === 'bjoern.kimminich@gmail.com' && req.body.password === 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI=' })
   }
 
+
+
+  
   function verifyPostLoginChallenges (user: { data: User }) {
     challengeUtils.solveIf(challenges.loginAdminChallenge, () => { return user.data.id === users.admin.id })
     challengeUtils.solveIf(challenges.loginJimChallenge, () => { return user.data.id === users.jim.id })
