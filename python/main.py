@@ -41,7 +41,7 @@ sock = socket(
     AF_INET,
     SOCK_STREAM | SOCK_NONBLOCK)
 
-# Bind the socket to the internet with a port number
+# Bind the socket to the internet with a port numbera
 sock.bind(("0.0.0.0", 32007))
 
 
