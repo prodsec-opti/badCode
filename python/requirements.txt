@@ -16,3 +16,6 @@ six==1.11.0       # CVE-2020-28493 (Non-Critical)
 
 # False Positive Test
 colorama==0.4.1   # Often flagged but no real vulnerabilities
+
+Flask==0.10   # MEDIUM #1: old framework version (outdated)
+requests==2.18.0  # (also old;
