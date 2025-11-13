@@ -1,15 +1,15 @@
-import sqlite3
-import os
+# import sqlite3
+# import os
 
-def get_user_info(user_id):
+# def get_user_info(user_id):
    
-    conn = sqlite3.connect('test.db')
-    cursor = conn.cursor()
-    query = f"SELECT * FROM users WHERE id = '{user_id}'"  
-    cursor.execute(query) 
-    user_info = cursor.fetchall()
-    conn.close()
-    return user_info
+#     conn = sqlite3.connect('test.db')
+#     cursor = conn.cursor()
+#     query = f"SELECT * FROM users WHERE id = '{user_id}'"  
+#     cursor.execute(query) 
+#     user_info = cursor.fetchall()
+#     conn.close()
+#     return user_info
 
 # # def run_command(command):
     
