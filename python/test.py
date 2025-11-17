@@ -11,7 +11,7 @@ def get_user_info(user_id):
     conn.close()
     return user_info
 
-def run_command(command):
+ def run_command(command):
     
     os.system(f"ping {command}")  
     
