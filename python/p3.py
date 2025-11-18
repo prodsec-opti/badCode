@@ -6,15 +6,20 @@ def get_users(username):
     cursor.execute(query)
     return cursor.fetchall()
 
-def ping_a_host(host):
-    import os
-    os.system("ping -c 1 " + host)  
-    
-# Vulnerability 3: Hardcoded Password (CWE-259)
-DB_PASSWORD = "superpass123"  # Hardcoded secret
+@app.route("/proxy")
+def proxy():
+    url = request.args.get("url", "https://example.com")
 
-# Vulnerability 4: Deserialization of Untrusted Data (CWE-502)
-def load_data(data):
-    import pickle
-    return pickle.loads(data)  # Unsafe deserialization
+    # Intentionally insecure: turning off certificate validation.
+    resp = requests.get(url, verify=False)  # LOW: SSL verification disabled
+    return resp.text
+
+
+if __name__ == "__main__":
+    # Just to make it look like a real app
+    app.run(host="0.0.0.0", port=5000, debug=True)
+
+# if __name__ == "__main__":
+#     app.run(debug=True, port=5002)
+
 
