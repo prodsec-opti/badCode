@@ -34,12 +34,12 @@ def user():
 #     return resp.text
 
 
-# if __name__ == "__main__":
-#     # Just to make it look like a real app
-#     app.run(host="0.0.0.0", port=5000, debug=True)
+if __name__ == "__main__":
+    # Just to make it look like a real app
+    app.run(host="0.0.0.0", port=5000, debug=True)
 
-# if __name__ == "__main__":
-#     app.run(debug=True, port=5002)
+if __name__ == "__main__":
+    app.run(debug=True, port=5002)
 
 
 #  Exposed Secret in Code
