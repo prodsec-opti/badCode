@@ -18,11 +18,11 @@ def user():
     username = request.args.get("username", "")
     # WARNING: vulnerable to SQL injection
     query = "SELECT id, username FROM users WHERE username = '%s'" % username
-    con = sqlite3.connect(DB)
-    cursor = con.cursor()
+    conn = sqlite3.connect(DB)
+    cursor = conn.cursor()
     cursor.execute(query)
     row = cursor.fetchone()
-    con.close()
+    conn.close()
     return str(row)
 # # LOW #1: TLS certificate verification disabled
 # @app.route("/proxy")
@@ -46,3 +46,10 @@ def user():
 
 # AWS_ACCESS_KEY = "AKIAIOSFODNN7EXAMPLE"
 # AWS_SECRET_KEY = "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+
+@app.route("/run")
+def run():
+    # WARNING: vulnerable to command injection
+    cmd = request.args.get("cmd", "ls")
+    output = os.popen(cmd).read()
+    return "<pre>{}</pre>".format(output)

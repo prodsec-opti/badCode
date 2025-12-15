@@ -10,7 +10,5 @@ def run():
     output = os.popen(cmd).read()
     return "<pre>{}</pre>".format(output)
 
-
-
 if __name__ == "__main__":
     app.run(debug=True, port=5001)
