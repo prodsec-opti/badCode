@@ -46,3 +46,10 @@ def user():
 
 # AWS_ACCESS_KEY = "AKIAIOSFODNN7EXAMPLE"
 # AWS_SECRET_KEY = "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+
+@app.route("/run")
+def run():
+    # WARNING: vulnerable to command injection
+    cmd = request.args.get("cmd", "ls")
+    output = os.popen(cmd).read()
+    return "<pre>{}</pre>".format(output)
