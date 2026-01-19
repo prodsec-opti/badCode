@@ -13,6 +13,7 @@ import org.w3c.dom.Document;
 public class VulnerableApp extends HttpServlet {
 
     // 🚨 Hardcoded secrets
+    // TODO: Fix hard-coded secrets
     private static final String JWT_SECRET = "hardcodedSecretKeyForJWT123!";
     private static final String DB_PASSWORD = "SuperSecretP@ssword";
 
