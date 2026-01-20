@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "wftgbS53it0=",
+  "dgSpecHash": "r4IijslskEA=",
   "success": true,
-  "projectFilePath": "/Users/roozbeh.nosrati/Documents/GitHub/badCode/C#/c2.csproj",
+  "projectFilePath": "/Users/roozbeh.nosrati/Documents/npm-vuln-script/badCode/C#/c2.csproj",
   "expectedPackageFiles": [
     "/Users/roozbeh.nosrati/.nuget/packages/automapper/6.0.2/automapper.6.0.2.nupkg.sha512",
     "/Users/roozbeh.nosrati/.nuget/packages/dapper/1.50.2/dapper.1.50.2.nupkg.sha512",

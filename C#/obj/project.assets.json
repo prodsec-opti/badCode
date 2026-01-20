@@ -4270,11 +4270,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/roozbeh.nosrati/Documents/GitHub/badCode/C#/c2.csproj",
+      "projectUniqueName": "/Users/roozbeh.nosrati/Documents/npm-vuln-script/badCode/C#/c2.csproj",
       "projectName": "c2",
-      "projectPath": "/Users/roozbeh.nosrati/Documents/GitHub/badCode/C#/c2.csproj",
+      "projectPath": "/Users/roozbeh.nosrati/Documents/npm-vuln-script/badCode/C#/c2.csproj",
       "packagesPath": "/Users/roozbeh.nosrati/.nuget/packages/",
-      "outputPath": "/Users/roozbeh.nosrati/Documents/GitHub/badCode/C#/obj/",
+      "outputPath": "/Users/roozbeh.nosrati/Documents/npm-vuln-script/badCode/C#/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/roozbeh.nosrati/.nuget/NuGet/NuGet.Config"
