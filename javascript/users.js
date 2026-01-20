@@ -29,24 +29,24 @@
 
 
 
-// Parameterized Query
-const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'securedb',
-});
+// // Parameterized Query
+// const connection = mysql.createConnection({
+//     host: 'localhost',
+//     user: 'root',
+//     password: '',
+//     database: 'securedb',
+// });
 
-// Secure SQL query using parameterized queries
-app.post('/user', (req, res) => {
-    const { username, email } = req.body;
+// // Secure SQL query using parameterized queries
+// app.post('/user', (req, res) => {
+//     const { username, email } = req.body;
 
-    const query = 'INSERT INTO users (username, email) VALUES (?, ?)';
-    connection.query(query, [username, email], (err, result) => {
-        if (err) {
-            console.error('Database error:', err);
-            return res.status(500).send('Internal Server Error');
-        }
-        res.send('User added successfully!');
-    });
-});
+//     const query = 'INSERT INTO users (username, email) VALUES (?, ?)';
+//     connection.query(query, [username, email], (err, result) => {
+//         if (err) {
+//             console.error('Database error:', err);
+//             return res.status(500).send('Internal Server Error');
+//         }
+//         res.send('User added successfully!');
+//     });
+// });
