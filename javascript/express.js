@@ -40,11 +40,11 @@ doGetRequest();
 
 const app = express();
 
-// app.get('/user', (req, res) => {
-//   const userId = req.query.id;
-//   baz(userId,0)
-//   res.send(`User ID: ${userId}`);
-// });
+app.get('/user', (req, res) => {
+  const userId = req.query.id;
+  baz(userId,0)
+  res.send(`User ID: ${userId}`);
+});
 
 
 
