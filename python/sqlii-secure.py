@@ -31,8 +31,8 @@ def user():
         # Avoid leaking internal DB error details to clients
         abort(500, description="Database error")
 
-    # if row is None:
-    #     return jsonify({"error": "User not found"}), 404
+    if row is None:
+        return jsonify({"error": "User not found"}), 404
 
     # Return structured JSON instead of raw tuple/string
     return jsonify({"id": row["id"], "username": row["username"]}), 200
