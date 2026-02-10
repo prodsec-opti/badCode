@@ -17,10 +17,10 @@ def user():
     init_db()
     username = request.args.get("username", "")
     # WARNING: vulnerable to SQL injection
-    query = "SELECT id, username FROM users WHERE username = '%s'" % username
+    query1 = "SELECT id, username FROM users WHERE username = '%s'" % username
     conn = sqlite3.connect(DB)
     cursor = conn.cursor()
-    cursor.execute(query)
+    cursor.execute(query1)
     row = cursor.fetchone()
     conn.close()
     return str(row)
