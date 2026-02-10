@@ -5,12 +5,12 @@ from flask import Flask, request
 app = Flask(__name__)
 DB = "test.db"
 
-def init_db():
-    conn = sqlite3.connect(DB)
-    conn.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, username TEXT, password TEXT)")
-    conn.execute("INSERT OR IGNORE INTO users (id, username, password) VALUES (1, 'alice', 'passw0rd')")
-    conn.commit()
-    conn.close()
+# def init_db():
+#     conn = sqlite3.connect(DB)
+#     conn.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, username TEXT, password TEXT)")
+#     conn.execute("INSERT OR IGNORE INTO users (id, username, password) VALUES (1, 'alice', 'passw0rd')")
+#     conn.commit()
+#     conn.close()
 
 # @app.route("/user")
 # def user():
@@ -24,20 +24,3 @@ def init_db():
 #     row = cursor.fetchone()
 #     conn.close()
 #     return str(row)
-
-
-    @app.route("/user")
-    def user():
-        init_db()
-        username = request.args.get("username", "")
-
-        conn = sqlite3.connect(DB)
-        cursor = conn.cursor()
-        cursor.execute(
-            "SELECT id, username FROM users WHERE username = ?",
-            (username,)
-        )
-        row = cursor.fetchone()
-        conn.close()
-
-        return str(row)
