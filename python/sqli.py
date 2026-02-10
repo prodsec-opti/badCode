@@ -12,37 +12,32 @@ def init_db():
     conn.commit()
     conn.close()
 
-@app.route("/user")
-def user():
-    init_db()
-    username = request.args.get("username", "")
-    # WARNING: vulnerable to SQL injection
-    query1 = "SELECT id, username FROM users WHERE username = '%s'" % username
-    conn = sqlite3.connect(DB)
-    cursor = conn.cursor()
-    cursor.execute(query1)
-    row = cursor.fetchone()
-    conn.close()
-    return str(row)
-# # LOW #1: TLS certificate verification disabled
-# @app.route("/proxy")
-# def proxy():
-#     url = request.args.get("url", "https://example.com")
-
-#     # Intentionally insecure: turning off certificate validation.
-#     resp = requests.get(url, verify=False)  # LOW: SSL verification disabled
-#     return resp.text
+# @app.route("/user")
+# def user():
+#     init_db()
+#     username = request.args.get("username", "")
+#     # WARNING: vulnerable to SQL injection
+#     query1 = "SELECT id, username FROM users WHERE username = '%s'" % username
+#     conn = sqlite3.connect(DB)
+#     cursor = conn.cursor()
+#     cursor.execute(query1)
+#     row = cursor.fetchone()
+#     conn.close()
+#     return str(row)
 
 
-# if __name__ == "__main__":
-#     # Just to make it look like a real app
-#     app.run(host="0.0.0.0", port=5000, debug=True)
+    @app.route("/user")
+    def user():
+        init_db()
+        username = request.args.get("username", "")
 
-# if __name__ == "__main__":
-#     app.run(debug=True, port=5002)
+        conn = sqlite3.connect(DB)
+        cursor = conn.cursor()
+        cursor.execute(
+            "SELECT id, username FROM users WHERE username = ?",
+            (username,)
+        )
+        row = cursor.fetchone()
+        conn.close()
 
-
-#  Exposed Secret in Code
-
-# AWS_ACCESS_KEY = "AKSSSSSSIAIOSFODNN7EXAMPLE"
-# AWS_SECRET_KEY = "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+        return str(row)
