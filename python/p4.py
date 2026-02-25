@@ -15,15 +15,15 @@ def init_db():
 @app.route("/user")
 def user():
     init_db()
-    username = request.args.get("username", "")
-    # WARNING: vulnerable to SQL injection
-    query = "SELECT id, username FROM users WHERE username = '%s'" % username
-    conn = sqlite3.connect(DB)
-    cursor = conn.cursor()
-    cursor.execute(query)
-    row = cursor.fetchone()
-    conn.close()
-    return str(row)
+    # username = request.args.get("username", "")
+    # # WARNING: vulnerable to SQL injection
+    # query = "SELECT id, username FROM users WHERE username = '%s'" % username
+    # conn = sqlite3.connect(DB)
+    # cursor = conn.cursor()
+    # cursor.execute(query)
+    # row = cursor.fetchone()
+    # conn.close()
+    # return str(row)
 # # LOW #1: TLS certificate verification disabled
 # @app.route("/proxy")
 # def proxy():
