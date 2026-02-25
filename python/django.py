@@ -22,17 +22,17 @@ class LogEntryAdminMixin(object):
         return obj.timestamp.strftime('%Y-%m-%d %H:%M:%S')
     created.short_description = 'Created'
 
-    def user_url(self, obj):
-        if obj.actor:
-            app_label, model = settings.AUTH_USER_MODEL.split('.')
-            viewname = 'admin:%s_%s_change' % (app_label, model.lower())
-            try:
-                link = urlresolvers.reverse(viewname, args=[obj.actor.id])
-            except NoReverseMatch:
-                return u'%s' % (obj.actor)
-            return format_html(u'<a href="{}">{}</a>', link, obj.actor)
+    # def user_url(self, obj):
+    #     if obj.actor:
+    #         app_label, model = settings.AUTH_USER_MODEL.split('.')
+    #         viewname = 'admin:%s_%s_change' % (app_label, model.lower())
+    #         try:
+    #             link = urlresolvers.reverse(viewname, args=[obj.actor.id])
+    #         except NoReverseMatch:
+    #             return u'%s' % (obj.actor)
+    #         return format_html(u'<a href="{}">{}</a>', link, obj.actor)
 
-        return 'system'
+        # return 'system'
     user_url.short_description = 'User'
 
     def msg_short(self, obj):
