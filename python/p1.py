@@ -8,17 +8,17 @@
 #     return cursor.fetchall()
 
 # Vulnerability 2: Command Injection (CWE-78)
-def ping_host(host):
-    import os
-    os.system("ping -c 1 " + host)  # Command injection
+# def ping_host(host):
+#     import os
+#     os.system("ping -c 1 " + host)  # Command injection
     
-# Vulnerability 3: Hardcoded Password (CWE-259)
-DB_PASSWORD = "supersecret123"  # Hardcoded secret
+# # Vulnerability 3: Hardcoded Password (CWE-259)
+# DB_PASSWORD = "supersecret123"  # Hardcoded secret
 
-# Vulnerability 4: Deserialization of Untrusted Data (CWE-502)
-def load_data(data):
-    import pickle
-    return pickle.loads(data)  # Unsafe deserialization
+# # Vulnerability 4: Deserialization of Untrusted Data (CWE-502)
+# def load_data(data):
+#     import pickle
+#     return pickle.loads(data)  # Unsafe deserialization
 
 # Vulnerability 5: Exposed Secret in Code
 
