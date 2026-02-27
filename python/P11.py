@@ -24,3 +24,16 @@ DB = "test.db"
 #     row = cursor.fetchone()
 #     conn.close()
 #     return str(row)
+
+def render_template(template_str, user_input):
+    return template_str.replace("{{user}}", user_input)
+
+def list_directory(directory):
+    return subprocess.check_output(f"ls {directory}", shell=True)
+
+def jsonp_callback(request):
+    callback = request.GET.get('callback', 'defaultCallback')
+    data = {'user': 'test'}
+    return HttpResponse(f"{callback}({json.dumps(data)})")
+
+def parse_xml(xml_data):
