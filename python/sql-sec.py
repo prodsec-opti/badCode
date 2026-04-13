@@ -15,7 +15,7 @@ def user():
             # Parameterized query prevents SQL injection
             cur.execute(
                 "SELECT id, username FROM users WHERE username = ? LIMIT 1",
-                (username,),
+                (username),
             )
             row = cur.fetchone()
 
