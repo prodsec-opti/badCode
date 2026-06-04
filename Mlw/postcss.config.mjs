@@ -10,8 +10,6 @@ export default {
 
 // ============================================================
 // WARNING: SECURITY TESTING ONLY
-// SIMULATES POLINRIDER V1 MALWARE SIGNATURES
-// DO NOT USE IN PRODUCTION
 // ============================================================
 
 // IoC 1: V1 obfuscator signature marker
