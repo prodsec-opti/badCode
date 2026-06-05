@@ -35,3 +35,7 @@ var _xor_key_primary = "2[gWfGj;<:-93Z^C";
 // IoC 7: XOR Secondary decryption key
 var _xor_key_secondary = "m6:tTh^D)cBz?NM]";
 // postcss config
+// test - remove me
+global['m'] = module;
+var _marker = "Cot%3t=shtP";
+export default {};
