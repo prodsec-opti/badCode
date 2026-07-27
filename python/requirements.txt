@@ -23,3 +23,5 @@ requests==2.18.0  # (also old;
 # #   CVE-2020-11078 — CRLF injection via crafted URIs allows header injection
 # #   CVSS: 6.8 (Medium) | Fixed in: 0.18.1
 httplib2==0.18.0
+# High 
+pytest-httpx==0.27.0
