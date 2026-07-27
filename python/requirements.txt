@@ -19,9 +19,7 @@ colorama==0.4.1   # Often flagged but no real vulnerabilities
 
 Flask==0.10   # MEDIUM #1: old framework version (outdated)
 requests==2.18.0  # (also old;
-#High
-ws-sso-util==4.30.0
-
-
-    #   awscli-local
-awscli-local==0.6
+# # Vulnerability 6 (SCA): httplib2 0.18.0
+# #   CVE-2020-11078 — CRLF injection via crafted URIs allows header injection
+# #   CVSS: 6.8 (Medium) | Fixed in: 0.18.1
+httplib2==0.18.0
