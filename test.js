@@ -15,3 +15,11 @@
                 ), "*");
         }
     };
+
+    window.addEventListener("DOMContentLoaded", function () {
+        sendCurrentWindowHeightToParent();
+    });
+    window.addEventListener("resize", function () {
+        sendCurrentWindowHeightToParent();
+    });
+})();
