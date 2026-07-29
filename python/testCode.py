@@ -14,7 +14,7 @@
                     "x-opal-vau-id": "vau-1",
                 }
             )
-           
+        
 # """URL canonicalization for the crawl pipeline.
 
 # Two transformations are applied to every URL the worker persists into
